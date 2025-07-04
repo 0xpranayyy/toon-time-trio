@@ -32,101 +32,96 @@ const UserStats: React.FC<UserStatsProps> = ({
   ];
 
   return (
-    <Card className="w-full bg-gradient-secondary shadow-soft border-0">
+    <Card className="w-full">
       <CardHeader className="text-center pb-4">
-        <div className="relative w-20 h-20 mx-auto mb-4">
+        <div className="relative w-16 h-16 mx-auto mb-4">
           <img 
             src={avatarImage} 
             alt="User Avatar" 
-            className="w-full h-full rounded-full border-4 border-secondary-foreground/20 animate-float"
+            className="w-full h-full rounded-full border-2 border-border"
           />
           <Badge 
-            className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground"
+            className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs"
           >
-            Level {currentLevel}
+            Lv. {currentLevel}
           </Badge>
         </div>
-        <CardTitle className="text-xl text-secondary-foreground">Study Master</CardTitle>
-        <p className="text-sm text-secondary-foreground/70">Keep up the great work! 🌟</p>
+        <CardTitle className="text-lg text-foreground">Study Progress</CardTitle>
       </CardHeader>
       
       <CardContent className="space-y-6">
         {/* Level Progress */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-secondary-foreground">Level Progress</span>
-            <span className="text-sm text-secondary-foreground/70">
+            <span className="text-sm font-medium">Level Progress</span>
+            <span className="text-sm text-muted-foreground">
               {totalStudyTime % 120} / 120 min
             </span>
           </div>
-          <Progress value={levelProgress} className="h-3" />
-          <p className="text-xs text-secondary-foreground/60 text-center">
-            {120 - (totalStudyTime % 120)} minutes until level {currentLevel + 1}
+          <Progress value={levelProgress} className="h-2" />
+          <p className="text-xs text-muted-foreground text-center">
+            {120 - (totalStudyTime % 120)} min to level {currentLevel + 1}
           </p>
         </div>
 
         {/* Weekly Goal */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-secondary-foreground flex items-center gap-1">
+            <span className="text-sm font-medium flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               Weekly Goal
             </span>
-            <span className="text-sm text-secondary-foreground/70">
+            <span className="text-sm text-muted-foreground">
               {weeklyHours.toFixed(1)} / {weeklyGoal}h
             </span>
           </div>
-          <Progress value={Math.min(weeklyProgress, 100)} className="h-3" />
-          <p className="text-xs text-secondary-foreground/60 text-center">
+          <Progress value={Math.min(weeklyProgress, 100)} className="h-2" />
+          <p className="text-xs text-muted-foreground text-center">
             {weeklyProgress >= 100 
-              ? "🎉 Weekly goal achieved!" 
-              : `${(weeklyGoal - weeklyHours).toFixed(1)} hours to go`
+              ? "Goal achieved!" 
+              : `${(weeklyGoal - weeklyHours).toFixed(1)}h remaining`
             }
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-background/50 p-4 rounded-lg text-center">
-            <div className="flex items-center justify-center gap-1 mb-2">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-muted p-3 rounded-lg text-center">
+            <div className="flex items-center justify-center gap-1 mb-1">
               <Clock className="w-4 h-4 text-primary" />
-              <span className="text-sm text-muted-foreground">Total Time</span>
+              <span className="text-xs text-muted-foreground">Total</span>
             </div>
-            <p className="text-2xl font-bold text-foreground">
+            <p className="text-lg font-semibold text-foreground">
               {Math.floor(totalStudyTime / 60)}h {totalStudyTime % 60}m
             </p>
           </div>
           
-          <div className="bg-background/50 p-4 rounded-lg text-center">
-            <div className="flex items-center justify-center gap-1 mb-2">
+          <div className="bg-muted p-3 rounded-lg text-center">
+            <div className="flex items-center justify-center gap-1 mb-1">
               <Book className="w-4 h-4 text-success" />
-              <span className="text-sm text-muted-foreground">Sessions</span>
+              <span className="text-xs text-muted-foreground">Sessions</span>
             </div>
-            <p className="text-2xl font-bold text-foreground">{sessionsCompleted}</p>
+            <p className="text-lg font-semibold text-foreground">{sessionsCompleted}</p>
           </div>
         </div>
 
         {/* Achievements */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-secondary-foreground">Achievements</h3>
+          <h3 className="text-sm font-medium">Achievements</h3>
           <div className="grid grid-cols-2 gap-2">
             {achievements.map((achievement) => (
               <div 
                 key={achievement.id}
-                className={`p-3 rounded-lg border-2 transition-all duration-300 ${
+                className={`p-2 rounded-lg border text-center ${
                   achievement.unlocked
-                    ? 'bg-success/10 border-success/30 shadow-success animate-bounce-in'
-                    : 'bg-muted/20 border-muted/40 opacity-50'
+                    ? 'bg-success/10 border-success text-success'
+                    : 'bg-muted border-muted-foreground/20 opacity-50'
                 }`}
               >
-                <div className="text-center">
-                  <div className="text-2xl mb-1">{achievement.icon}</div>
-                  <p className={`text-xs font-medium ${
-                    achievement.unlocked ? 'text-success' : 'text-muted-foreground'
-                  }`}>
-                    {achievement.name}
-                  </p>
-                </div>
+                <div className="text-lg mb-1">{achievement.icon}</div>
+                <p className="text-xs font-medium">
+                  {achievement.name}
+                </p>
               </div>
             ))}
           </div>

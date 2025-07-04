@@ -71,41 +71,35 @@ const Timer: React.FC<TimerProps> = ({ onSessionComplete }) => {
   const progress = ((initialTime - timeLeft) / initialTime) * 100;
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-gradient-primary shadow-soft border-0">
+    <Card className="w-full">
       <CardHeader className="text-center pb-4">
-        <CardTitle className="text-2xl font-bold text-primary-foreground flex items-center justify-center gap-2">
-          <Clock className="w-6 h-6" />
+        <CardTitle className="text-xl text-foreground">
           {mode === 'study' ? 'Focus Time' : 'Break Time'}
         </CardTitle>
         <div className="flex gap-2 justify-center mt-4">
           <Button 
-            variant={sessionType === 'pomodoro' ? 'secondary' : 'outline'}
+            variant={sessionType === 'pomodoro' ? 'default' : 'outline'}
             size="sm"
             onClick={() => switchSession('pomodoro')}
-            className="text-xs"
           >
-            Pomodoro (25/5)
+            25/5 min
           </Button>
           <Button 
-            variant={sessionType === 'extended' ? 'secondary' : 'outline'}
+            variant={sessionType === 'extended' ? 'default' : 'outline'}
             size="sm"
             onClick={() => switchSession('extended')}
-            className="text-xs"
           >
-            Extended (50/10)
+            50/10 min
           </Button>
         </div>
       </CardHeader>
       
       <CardContent className="text-center space-y-6">
         <div className="relative">
-          <div className="text-6xl font-mono font-bold text-primary-foreground mb-4 animate-pulse-glow">
+          <div className="text-5xl font-mono font-bold text-foreground mb-4">
             {formatTime(timeLeft)}
           </div>
-          <Progress 
-            value={progress} 
-            className="h-3 bg-primary-foreground/20" 
-          />
+          <Progress value={progress} className="h-2" />
         </div>
         
         <div className="flex gap-3 justify-center">
@@ -113,8 +107,7 @@ const Timer: React.FC<TimerProps> = ({ onSessionComplete }) => {
             <Button 
               onClick={handleStart}
               size="lg"
-              variant="secondary"
-              className="bg-success hover:bg-success/90 animate-bounce-in"
+              className="bg-primary hover:bg-primary/90"
             >
               <Play className="w-5 h-5 mr-2" />
               Start
@@ -123,8 +116,7 @@ const Timer: React.FC<TimerProps> = ({ onSessionComplete }) => {
             <Button 
               onClick={handlePause}
               size="lg"
-              variant="secondary"
-              className="bg-warning hover:bg-warning/90"
+              variant="outline"
             >
               <Pause className="w-5 h-5 mr-2" />
               Pause
@@ -135,14 +127,13 @@ const Timer: React.FC<TimerProps> = ({ onSessionComplete }) => {
             onClick={handleReset}
             size="lg"
             variant="outline"
-            className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
           >
             <RotateCcw className="w-5 h-5" />
           </Button>
         </div>
         
-        <div className="text-sm text-primary-foreground/70 capitalize">
-          Current: {mode} session
+        <div className="text-sm text-muted-foreground capitalize">
+          {mode} session
         </div>
       </CardContent>
     </Card>

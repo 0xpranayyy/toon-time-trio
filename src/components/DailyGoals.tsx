@@ -68,21 +68,21 @@ const DailyGoals: React.FC<DailyGoalsProps> = ({ studyTime = 0 }) => {
   const overallProgress = totalTargetMinutes > 0 ? (totalCompletedMinutes / totalTargetMinutes) * 100 : 0;
 
   return (
-    <Card className="w-full bg-card shadow-soft border-border/20">
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-card-foreground">
+        <CardTitle className="flex items-center gap-2 text-foreground">
           <Calendar className="w-5 h-5 text-primary" />
           Daily Goals
         </CardTitle>
-        <div className="bg-gradient-secondary p-3 rounded-lg">
+        <div className="bg-muted p-3 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-secondary-foreground">Overall Progress</span>
-            <span className="text-sm text-secondary-foreground">
+            <span className="text-sm font-medium">Overall Progress</span>
+            <span className="text-sm text-muted-foreground">
               {Math.round(overallProgress)}%
             </span>
           </div>
           <Progress value={overallProgress} className="h-2" />
-          <div className="flex items-center gap-1 mt-2 text-xs text-secondary-foreground/70">
+          <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
             <Clock className="w-3 h-3" />
             {totalCompletedMinutes} / {totalTargetMinutes} minutes
           </div>
@@ -96,16 +96,16 @@ const DailyGoals: React.FC<DailyGoalsProps> = ({ studyTime = 0 }) => {
           return (
             <div 
               key={goal.id}
-              className={`p-4 rounded-lg border-2 transition-all duration-300 cursor-pointer hover:shadow-soft ${
+              className={`p-4 rounded-lg border transition-all cursor-pointer ${
                 goal.completed 
-                  ? 'bg-success/10 border-success/30 shadow-success' 
-                  : 'bg-muted/30 border-border/20 hover:border-primary/30'
+                  ? 'bg-success/10 border-success text-success' 
+                  : 'bg-muted/30 border-border hover:border-primary'
               }`}
               onClick={() => toggleGoal(goal.id)}
             >
               <div className="flex items-center justify-between mb-2">
                 <h3 className={`font-medium ${
-                  goal.completed ? 'text-success line-through' : 'text-card-foreground'
+                  goal.completed ? 'line-through' : ''
                 }`}>
                   {goal.title}
                 </h3>
@@ -114,14 +114,11 @@ const DailyGoals: React.FC<DailyGoalsProps> = ({ studyTime = 0 }) => {
                 </div>
               </div>
               
-              <Progress 
-                value={progress} 
-                className={`h-2 ${goal.completed ? 'opacity-60' : ''}`}
-              />
+              <Progress value={progress} className="h-2" />
               
               {goal.completed && (
-                <div className="text-xs text-success mt-1 animate-bounce-in">
-                  ✨ Goal completed!
+                <div className="text-xs mt-1">
+                  ✓ Completed
                 </div>
               )}
             </div>

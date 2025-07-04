@@ -2,74 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Study Focus App - Cartoon/Anime Theme Design System
-All colors MUST be HSL for consistency and theming support.
-*/
+/* Study Focus - Minimalist Android Material Design System */
 
 @layer base {
   :root {
-    /* Soft cartoon-inspired background */
-    --background: 320 25% 98%;
-    --foreground: 260 15% 15%;
+    /* Clean neutral backgrounds */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 15%;
 
-    /* Card styling with soft pastels */
-    --card: 320 20% 96%;
-    --card-foreground: 260 15% 20%;
+    /* Subtle card styling */
+    --card: 0 0% 98%;
+    --card-foreground: 240 10% 15%;
 
     /* Popover styling */
-    --popover: 320 25% 98%;
-    --popover-foreground: 260 15% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
 
-    /* Primary - Soft Purple (focus theme) */
-    --primary: 280 60% 65%;
-    --primary-foreground: 320 25% 98%;
-    --primary-glow: 280 80% 75%;
+    /* Primary - Material Blue */
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Mint Green (success theme) */
-    --secondary: 160 50% 70%;
-    --secondary-foreground: 160 60% 15%;
+    /* Secondary - Neutral Gray */
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 10% 15%;
 
     /* Muted tones */
-    --muted: 320 15% 92%;
-    --muted-foreground: 260 10% 50%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 5% 45%;
 
-    /* Accent - Coral Pink (highlights) */
-    --accent: 15 85% 75%;
-    --accent-foreground: 15 60% 15%;
+    /* Accent - Material Green */
+    --accent: 140 50% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Success - Fresh Green */
-    --success: 140 60% 60%;
-    --success-foreground: 140 50% 15%;
+    /* Success - Clean Green */
+    --success: 120 100% 35%;
+    --success-foreground: 0 0% 100%;
 
-    /* Warning - Warm Orange */
-    --warning: 35 85% 65%;
-    --warning-foreground: 35 60% 15%;
+    /* Warning - Material Orange */
+    --warning: 35 100% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    /* Destructive - Soft Red */
-    --destructive: 0 70% 65%;
-    --destructive-foreground: 0 50% 98%;
+    /* Destructive - Material Red */
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Border and input styling */
-    --border: 320 20% 85%;
-    --input: 320 15% 90%;
-    --ring: 280 60% 65%;
+    /* Clean borders and inputs */
+    --border: 240 10% 90%;
+    --input: 240 10% 95%;
+    --ring: 210 100% 50%;
 
-    /* Custom gradients for cartoon theme */
-    --gradient-primary: linear-gradient(135deg, hsl(280 60% 65%), hsl(280 80% 75%));
-    --gradient-secondary: linear-gradient(135deg, hsl(160 50% 70%), hsl(140 60% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(15 85% 75%), hsl(35 85% 65%));
-    --gradient-bg: linear-gradient(180deg, hsl(320 25% 98%), hsl(280 15% 95%));
+    /* Minimal shadows */
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     
-    /* Shadows for depth */
-    --shadow-soft: 0 4px 20px hsl(280 60% 65% / 0.15);
-    --shadow-focus: 0 0 0 3px hsl(280 60% 65% / 0.3);
-    --shadow-success: 0 4px 20px hsl(140 60% 60% / 0.2);
-    
-    /* Animation timings */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Smooth transitions */
+    --transition: all 0.2s ease-in-out;
 
-    --radius: 1rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -89,33 +78,33 @@ All colors MUST be HSL for consistency and theming support.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 100% 60%;
+    --primary-foreground: 240 10% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 5% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 140 50% 60%;
+    --accent-foreground: 240 10% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 240 10% 20%;
+    --input: 240 10% 15%;
+    --ring: 210 100% 60%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

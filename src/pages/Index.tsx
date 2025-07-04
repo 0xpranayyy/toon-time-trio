@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Settings, Timer as TimerIcon, Target, CheckSquare, BarChart3, BookOpen } from "lucide-react";
 import Timer from '../components/Timer';
 import DailyGoals from '../components/DailyGoals';
 import TodoList from '../components/TodoList';
 import UserStats from '../components/UserStats';
 import Journal from '../components/Journal';
-import heroImage from "@/assets/hero-study.jpg";
+import SettingsPanel from '../components/SettingsPanel';
 
 const Index = () => {
-  const [totalStudyTime, setTotalStudyTime] = useState(245); // minutes
+  const [totalStudyTime, setTotalStudyTime] = useState(245);
   const [sessionsCompleted, setSessionsCompleted] = useState(8);
   const [dailyStudyTime, setDailyStudyTime] = useState(120);
 
@@ -21,150 +22,96 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-bg">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-primary text-primary-foreground">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 container mx-auto px-4 py-16">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Study Focus
-                <span className="block text-2xl md:text-3xl font-normal opacity-90">
-                  Cartoon Edition ✨
-                </span>
-              </h1>
-              <p className="text-lg md:text-xl opacity-90">
-                Level up your studies with cute timers, goals, and achievements. 
-                Make learning fun and rewarding!
-              </p>
-              <div className="flex flex-wrap gap-4 text-sm">
-                <div className="bg-primary-foreground/20 px-4 py-2 rounded-full">
-                  🍅 Pomodoro Timer
-                </div>
-                <div className="bg-primary-foreground/20 px-4 py-2 rounded-full">
-                  🎯 Daily Goals
-                </div>
-                <div className="bg-primary-foreground/20 px-4 py-2 rounded-full">
-                  📚 Study Journal
-                </div>
-                <div className="bg-primary-foreground/20 px-4 py-2 rounded-full">
-                  🏆 Level System
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <img 
-                src={heroImage} 
-                alt="Cute cartoon study scene" 
-                className="max-w-full h-auto rounded-2xl shadow-soft animate-float"
-              />
-            </div>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="bg-card border-b border-border px-4 py-3">
+        <div className="flex items-center justify-between max-w-md mx-auto">
+          <h1 className="text-lg font-semibold text-foreground">Study Focus</h1>
+          <div className="text-sm text-muted-foreground">
+            Level {Math.floor(totalStudyTime / 120) + 1}
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main App Content */}
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+      {/* Main Content */}
+      <div className="max-w-md mx-auto pb-20">
         <Tabs defaultValue="timer" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8 bg-card/80 backdrop-blur-sm">
-            <TabsTrigger value="timer" className="text-sm">🍅 Timer</TabsTrigger>
-            <TabsTrigger value="goals" className="text-sm">🎯 Goals</TabsTrigger>
-            <TabsTrigger value="todos" className="text-sm">📝 Tasks</TabsTrigger>
-            <TabsTrigger value="stats" className="text-sm">📊 Stats</TabsTrigger>
-            <TabsTrigger value="journal" className="text-sm">📚 Journal</TabsTrigger>
-          </TabsList>
+          <div className="p-4">
+            <TabsContent value="timer" className="mt-0">
+              <Timer onSessionComplete={handleSessionComplete} />
+            </TabsContent>
 
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Main Content Area */}
-            <div className="lg:col-span-2 space-y-6">
-              <TabsContent value="timer" className="mt-0">
-                <div className="flex justify-center">
-                  <Timer onSessionComplete={handleSessionComplete} />
-                </div>
-              </TabsContent>
+            <TabsContent value="goals" className="mt-0">
+              <DailyGoals studyTime={dailyStudyTime} />
+            </TabsContent>
 
-              <TabsContent value="goals" className="mt-0">
-                <DailyGoals studyTime={dailyStudyTime} />
-              </TabsContent>
+            <TabsContent value="todos" className="mt-0">
+              <TodoList />
+            </TabsContent>
 
-              <TabsContent value="todos" className="mt-0">
-                <TodoList />
-              </TabsContent>
-
-              <TabsContent value="stats" className="mt-0">
-                <div className="flex justify-center">
-                  <div className="w-full max-w-md">
-                    <UserStats 
-                      totalStudyTime={totalStudyTime}
-                      sessionsCompleted={sessionsCompleted}
-                      weeklyGoal={70}
-                    />
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="journal" className="mt-0">
-                <Journal />
-              </TabsContent>
-            </div>
-
-            {/* Sidebar with Stats */}
-            <div className="space-y-6">
+            <TabsContent value="stats" className="mt-0">
               <UserStats 
                 totalStudyTime={totalStudyTime}
                 sessionsCompleted={sessionsCompleted}
                 weeklyGoal={70}
               />
-              
-              {/* Quick Timer Section */}
-              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-soft border border-border/20">
-                <h3 className="text-lg font-semibold mb-4 text-card-foreground">Quick Start</h3>
-                <div className="space-y-3">
-                  <div className="text-sm text-muted-foreground">
-                    Ready to focus? Start a study session and watch your level grow!
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="bg-success/10 p-3 rounded-lg border border-success/20">
-                      <div className="font-medium text-success">Today's Progress</div>
-                      <div className="text-lg font-bold text-card-foreground">
-                        {Math.floor(dailyStudyTime / 60)}h {dailyStudyTime % 60}m
-                      </div>
-                    </div>
-                    <div className="bg-primary/10 p-3 rounded-lg border border-primary/20">
-                      <div className="font-medium text-primary">Sessions</div>
-                      <div className="text-lg font-bold text-card-foreground">
-                        {sessionsCompleted}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </TabsContent>
 
-              {/* Coming Soon Features */}
-              <div className="bg-gradient-accent p-6 rounded-xl shadow-soft">
-                <h3 className="text-lg font-semibold mb-4 text-accent-foreground">Coming Soon! 🚀</h3>
-                <div className="space-y-2 text-sm text-accent-foreground/80">
-                  <div className="flex items-center gap-2">
-                    <span>🎵</span>
-                    <span>White noise & background sounds</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>👥</span>
-                    <span>Live study rooms with friends</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>🏅</span>
-                    <span>More achievements & rewards</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>📱</span>
-                    <span>Mobile app companion</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TabsContent value="journal" className="mt-0">
+              <Journal />
+            </TabsContent>
+
+            <TabsContent value="settings" className="mt-0">
+              <SettingsPanel />
+            </TabsContent>
+          </div>
+
+          {/* Bottom Navigation */}
+          <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
+            <TabsList className="w-full h-16 bg-transparent p-0 grid grid-cols-6">
+              <TabsTrigger 
+                value="timer" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <TimerIcon className="w-5 h-5" />
+                <span className="text-xs">Timer</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="goals" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <Target className="w-5 h-5" />
+                <span className="text-xs">Goals</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="todos" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <CheckSquare className="w-5 h-5" />
+                <span className="text-xs">Tasks</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="stats" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <BarChart3 className="w-5 h-5" />
+                <span className="text-xs">Stats</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="journal" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <BookOpen className="w-5 h-5" />
+                <span className="text-xs">Journal</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="settings" 
+                className="flex flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+              >
+                <Settings className="w-5 h-5" />
+                <span className="text-xs">Settings</span>
+              </TabsTrigger>
+            </TabsList>
           </div>
         </Tabs>
       </div>
